@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer"> <!-- 新增：解决 B 站等视频平台的防盗链拦截问题 -->
+    <title>陈庆祥 | 意向岗位：制片人 / 媒体内容总监</title>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 Google 字体 (思源宋体 Noto Serif SC) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- 自定义配置与样式 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Serif SC"', 'serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            900: '#111827',
+                        },
+                        apple: {
+                            dark: '#1d1d1f',
+                            light: '#f5f5f7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #ffffff; color: #1d1d1f; overflow-x: hidden; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .img-parallax { transition: transform 0.5s ease-out; }
+        .img-container:hover .img-parallax { transform: scale(1.05); }
+        .highlight { position: relative; display: inline-block; }
+        .highlight::after { content: ''; position: absolute; width: 100%; height: 30%; bottom: 10%; left: 0; background-color: #d1d5db; z-index: -1; transition: height 0.3s ease; }
+        .highlight:hover::after { height: 100%; }
+
+        /* 模态框与视频容器样式 */
+        .modal-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 0.75rem; background-color: #1f2937; }
+        .video-wrapper iframe, .video-wrapper video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- 导航栏 (Apple风格深色半透明) -->
+    <nav class="fixed w-full top-0 z-50 bg-[rgba(22,22,23,0.8)] backdrop-blur-md border-b border-white/10 text-[#f5f5f7] shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter text-white">AntonNova</a>
+            <div class="hidden md:flex space-x-8 text-xs font-semibold tracking-wide">
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors">简介</a>
+                <a href="#experience" class="text-gray-300 hover:text-white transition-colors">履历</a>
+                <a href="#projects" class="text-gray-300 hover:text-white transition-colors">案例</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition-colors">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. 首屏 Hero 区域 (纯白 - 干净通透) -->
+    <section class="relative min-h-screen flex flex-col justify-center px-6 pt-24 pb-12 overflow-hidden bg-white">
+        <div class="absolute inset-0 z-0 opacity-[0.15]" style="background-image: radial-gradient(#6b7280 1px, transparent 1px); background-size: 32px 32px;"></div>
+        <canvas id="tech-canvas" class="absolute inset-0 z-0 opacity-60"></canvas>
+
+        <div class="max-w-7xl mx-auto w-full relative z-10 pointer-events-none">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 lg:gap-20 w-full">
+                
+                <div class="flex-1 flex flex-col justify-center">
+                    <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-1.5 mb-8 reveal pointer-events-auto shadow-sm self-start">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                        </span>
+                        <span class="text-gray-500 font-bold tracking-widest uppercase text-xs font-sans">System Online / Anton.C</span>
+                    </div>
+                    
+                    <div class="mb-8 reveal reveal-delay-1 pointer-events-auto">
+                        <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] text-gray-900">
+                            陈庆祥<br>
+                            <span class="text-gray-300 text-4xl md:text-5xl lg:text-6xl mt-4 block">Anton Chen.</span>
+                        </h1>
+                    </div>
+                    
+                    <div class="reveal reveal-delay-2 pointer-events-auto bg-white/40 backdrop-blur-sm rounded-2xl p-4 sm:-ml-4 mt-4">
+                        <h2 class="text-2xl md:text-3xl font-bold leading-relaxed mb-6 text-gray-900">
+                            意向岗位：制片人 / 媒体内容总监
+                        </h2>
+                        
+                        <ul class="text-lg text-gray-600 leading-relaxed space-y-4 mb-10">
+                            <li class="flex items-start">
+                                <i data-lucide="chevron-right" class="w-5 h-5 mr-3 mt-1.5 text-blue-500 shrink-0"></i>
+                                <span>深耕视频直播 8 年+ (头部平台骨干)，主导 <strong class="text-gray-900 font-semibold">0 到 1 打造标杆 IP</strong>，全网矩阵涨粉近 1000 万，累计观看破 10 亿。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="chevron-right" class="w-5 h-5 mr-3 mt-1.5 text-blue-500 shrink-0"></i>
+                                <span>极具商业敏锐度，主导矩阵 IP 商业化，每年预计个人实现<strong class="text-gray-900 font-semibold">约 1000 万营收</strong>，成功操盘全部 S 级内容营销。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="chevron-right" class="w-5 h-5 mr-3 mt-1.5 text-blue-500 shrink-0"></i>
+                                <span>搭建行业头部<strong class="text-gray-900 font-semibold">全流程生产 SOP</strong>，峰值调度 140+ 人，严控供应链与预算，三年累计为公司省本超 230 万。</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-900 font-medium">
+                            <a href="mailto:huger.man@163.com" class="flex items-center space-x-2 bg-white/60 hover:bg-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition-all border border-gray-100">
+                                <i data-lucide="mail" class="w-4 h-4 text-blue-500"></i>
+                                <span>huger.man@163.com</span>
+                            </a>
+                            <a href="tel:13161377729" class="flex items-center space-x-2 bg-white/60 hover:bg-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition-all border border-gray-100">
+                                <i data-lucide="phone" class="w-4 h-4 text-blue-500"></i>
+                                <span>131-6137-7729</span>
+                            </a>
+                            <div class="flex items-center space-x-2 bg-white/60 px-4 py-2 rounded-xl shadow-sm border border-gray-100 text-gray-500">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i>
+                                <span>北京 (Beijing)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-3 pointer-events-auto shrink-0 mt-8 md:mt-0 order-first md:order-last">
+                    <!-- 头像修改为了 avatar.jpg -->
+                    <img src="avatar.jpg" alt="Anton Chen 照片" class="w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-[2rem] object-cover shadow-2xl border-4 border-white object-top rotate-2 hover:rotate-0 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+        <div class="absolute -bottom-1/4 -right-1/4 w-3/4 h-[80%] bg-blue-50 rounded-full blur-[100px] opacity-60 -z-10" id="hero-blob"></div>
+    </section>
+
+    <!-- 2. 核心优势摘要 (深空灰 #1d1d1f - 突出版面反差) -->
+    <section id="about" class="py-32 px-6 bg-[#1d1d1f] text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-sm font-bold tracking-widest uppercase text-gray-500 mb-16 reveal">Profile Summary / 个人优势</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+                <div class="reveal reveal-delay-1">
+                    <div class="mb-6"><i data-lucide="zap" class="w-8 h-8 text-white"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-white">顶级平台与爆款制造机</h3>
+                    <ul class="space-y-3 text-gray-400 leading-relaxed list-disc ml-5 marker:text-gray-600">
+                        <li>8年视频内容深耕（含36氪 5年+核心骨干）。</li>
+                        <li>从0到1孵化《氪星研究所》等核心IP，年均策划109场直播。</li>
+                        <li>IP矩阵累计全网涨粉近千万，观看破10亿。</li>
+                    </ul>
+                </div>
+                
+                <div class="reveal reveal-delay-2">
+                    <div class="mb-6"><i data-lucide="trending-up" class="w-8 h-8 text-white"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-white">S级项目与商业变现</h3>
+                    <ul class="space-y-3 text-gray-400 leading-relaxed list-disc ml-5 marker:text-gray-600">
+                        <li>成功接盘并执行公司全部S级内容效果和品牌营销项目。</li>
+                        <li>精通全链路商业化落地，负责内部矩阵IP商业化实现。</li>
+                        <li>每年预计个人实现约千万级商业化营收。</li>
+                    </ul>
+                </div>
+
+                <div class="reveal reveal-delay-3">
+                    <div class="mb-6"><i data-lucide="git-merge" class="w-8 h-8 text-white"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-white">行业级SOP与成本严控</h3>
+                    <ul class="space-y-3 text-gray-400 leading-relaxed list-disc ml-5 marker:text-gray-600">
+                        <li>主导搭建行业头部全流程SOP，团队人效综合提升30%。</li>
+                        <li>峰值调度140+人，统筹400万资产。</li>
+                        <li>通过严格内控与报价体系，单项目成本骤降37.6%，三年省本超230万元。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 工作履历 (银色浅灰 #f5f5f7 - 提升长文阅读体验) -->
+    <section id="experience" class="py-32 px-6 bg-[#f5f5f7]">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-sm font-bold tracking-widest uppercase text-gray-400 mb-20 reveal">Work Experience / 核心履历</h2>
+            
+            <div class="space-y-24 border-l pl-8 border-gray-300 ml-4 md:ml-0 md:pl-0 md:border-none md:space-y-32 relative">
+                
+                <!-- 经历 1: 中信出版集团 -->
+                <div class="relative reveal flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+                    <div class="md:w-1/4 shrink-0 mt-1">
+                        <span class="text-gray-500 font-medium">2025.10 - 至今</span>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="text-3xl font-black mb-2 highlight text-gray-900">中信出版集团</h3>
+                        <p class="text-gray-500 font-medium mb-2">图书发行集团</p>
+                        <p class="text-lg text-black font-bold mb-8">媒体总监</p>
+                        <div class="space-y-6 text-gray-700 leading-relaxed">
+                            <div><strong class="text-black">【“深信”全媒体内容矩阵搭建】</strong> 统筹规划并搭建“深信”全媒体IP矩阵。全面主导内容策略定调、视觉体系构建及各新媒体平台分发逻辑，实现从 0 到 1 的品牌声量突破，以优质内容赋能图书发行与商业化变现。</div>
+                            <div><strong class="text-black">【S级品牌大会内容统筹与传播】</strong> 全面负责集团大型品牌大会的线上内容统筹、制作与全网发布。精准把控直播调度与多渠道内容宣发，打通线上线下传播链路，打造高曝光量、高转化率的行业标杆事件。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 经历 2: 36氪 -->
+                <div class="relative reveal flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+                    <div class="md:w-1/4 shrink-0 mt-1">
+                        <span class="text-gray-500 font-medium">2020.07 - 2025.10 (5年+)</span>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="text-3xl font-black mb-2 highlight text-gray-900">36氪</h3>
+                        <p class="text-gray-500 font-medium mb-2">ToB 头部内容平台 | ToC 知识内容头部矩阵</p>
+                        <p class="text-lg text-black font-bold mb-8">内容与商业化制片人 / 直播负责人</p>
+                        <div class="space-y-6 text-gray-700 leading-relaxed">
+                            <div><strong class="text-black">【爆款IP孵化与生态建设】</strong> 从 0 到 1 孵化标杆视频 IP《氪星研究所》及直播 IP《氪星直播间》。创新拓展原创微综艺、深度访谈等；打造《CEO锦囊》等 8 个重点栏目。</div>
+                            <div><strong class="text-black">【全链路变现与品牌营销】</strong> 输出超 40 个定制化商业提案。主导操盘百度、高通等 S 级大型营销项目，成功实现业务体量和商业化收入超预期增长。</div>
+                            <div><strong class="text-black">【工业化流程搭建与提效】</strong> 搭建视频及直播标准化工作流（SOP），制定超 27 项硬性标准。带领团队年产出短视频超 300 条，多次受邀赴抖音、腾讯、B站等分享。</div>
+                            <div><strong class="text-black">【S级项目调度与成本管控】</strong> 统筹管理超 140 人团队与 400 万元资产，搭建 225㎡ 实景演播厅。建立严格议价体系，相较市场报价节省超 60% 硬件成本；2024年成本较2021年缩减超 37.6%。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 经历 3: 湖南卫视 -->
+                <div class="relative reveal flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+                    <div class="md:w-1/4 shrink-0 mt-1">
+                        <span class="text-gray-500 font-medium">2018.01 - 2019.04</span>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="text-3xl font-black mb-2 highlight text-gray-900">湖南卫视 (节目制作中心)</h3>
+                        <p class="text-lg text-black font-bold mb-8">节目导演 / 编剧</p>
+                        <div class="space-y-6 text-gray-700 leading-relaxed">
+                            <div><strong class="text-black">【S级综艺制作与深耕】</strong> 参与头部音乐综艺《声入人心》（豆瓣 9.3，播放量 8 亿+）。负责节目赛制构建、真人秀玩法策划及全案拍摄执行。</div>
+                            <div><strong class="text-black">【品牌IP建立与艺人统筹】</strong> 建立美声音乐剧厂牌 IP，统筹逾 13000 名歌手海选，主导 7 位艺人+素人剧本编写，助推 4 名艺人入台。荣获白玉兰奖。</div>
+                            <div><strong class="text-black">【热点营销与商业化赞助】</strong> 主导热点宣发，个人操盘微博话题获 1.92 亿阅读；撰写商务执行方案，完成特仑苏、三菱汽车等头部品牌合作与招商。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 经历 4: 胖加菲传媒 -->
+                <div class="relative reveal flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+                    <div class="md:w-1/4 shrink-0 mt-1">
+                        <span class="text-gray-500 font-medium">2019.09 - 2020.04</span>
+                    </div>
+                    <div class="md:w-3/4">
+                        <h3 class="text-3xl font-black mb-2 highlight text-gray-900">胖加菲传媒</h3>
+                        <p class="text-gray-500 font-medium mb-2">原《奇葩说》核心班底团队</p>
+                        <p class="text-lg text-black font-bold mb-8">导演</p>
+                        <div class="space-y-6 text-gray-700 leading-relaxed">
+                            <div><strong class="text-black">【综艺制作与全案执行】</strong> 负责辩论、知识类综艺的节目赛制和结构搭建、真人秀玩法策划的全案拍摄执行。涵盖现场录制技术、宣传片制作、艺人内容编撰等全流程环节。</div>
+                            <div><strong class="text-black">【平台内容策划提案】</strong> 根据爱奇艺、央视、腾讯、新浪等平台节目片档规划，负责相应平台的节目策划与提案，精准匹配平台需求输出可行性内容。</div>
+                            <div><strong class="text-black">【衍生IP策划与商业营销】</strong> 基于旗下艺人（何运晨、席瑞、陈铭等）营销需求，主导策划并制作相关营销微综艺及短片；负责商业提案，协助品牌营销与商业广告植入方案落地。</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 代表项目 (纯黑 #000000 - 沉浸式影院感) -->
+    <section id="projects" class="py-32 px-6 bg-black text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-sm font-bold tracking-widest uppercase text-gray-500 mb-16 reveal">Selected Projects / 商业化与爆款案例</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- 项目 1：暗涌 Waves -->
+                <div class="group reveal reveal-delay-1 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片1修改为 project1.jpg -->
+                        <img src="project1.jpg" alt="暗涌 Waves 创投综艺" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-blue-400 mb-2 uppercase">SSS级全网首发</span>
+                            <h3 class="text-2xl font-bold text-white">暗涌 Waves<br>《Let's Waves》</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        原创独家创投行业IP。担任总制片人、摄制与后期总负责人。14小时调度40人团队，全网首发曝光超4340万。
+                    </p>
+                    <button onclick="openModal('data-proj1')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-blue-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-blue-500 group-hover:shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                    
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj1" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-blue-500 font-bold tracking-widest text-sm uppercase mb-3 block">SSS级全网首发 · 原创独立创投行业IP</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">暗涌 Waves<br>《Let's Waves》</h2>
+                        </div>
+                        <!-- 视频嵌入区 -->
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://36kr.com/live/3331892707469568" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://36kr.com/live/3331892707469568" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-blue-600 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 前往 36氪 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-blue-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目嘉宾：</strong><span class="text-white">10位 00后投资人/创业者</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">总制片人、摄制与后期总负责人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">操作与执行：</strong><span class="text-white">全执行周期 14 小时，调度与协调共计 40 人团队。</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-blue-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">市场背景：</strong><span class="text-white">在枯燥乏味的演讲峰会盛行的市场中，00后以独特的视角、创业的激情、脱口秀的形式讲述他们自己的创业故事。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与业绩：</strong><span class="text-white text-base text-blue-300 font-medium">视频首发，全网总曝光量超 4340 万。<br>该主题下公司全矩阵产品相关间接商业化收益超 270W。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目 2：高通 -->
+                <div class="group reveal reveal-delay-2 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片2修改为 project2.jpg -->
+                        <img src="project2.jpg" alt="高通元宇宙" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-purple-400 mb-2 uppercase">SSS级深度解析</span>
+                            <h3 class="text-2xl font-bold text-white">高通骁龙<br>《普通人如何进入元宇宙》</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        品牌内容营销。打造定制圆桌真人秀，获金榜奖最佳商业片提名，曝光超6859万。
+                    </p>
+                    <button onclick="openModal('data-proj2')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-purple-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-purple-500 group-hover:shadow-[0_0_20px_rgba(147,51,234,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                    
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj2" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-purple-500 font-bold tracking-widest text-sm uppercase mb-3 block">品牌内容传播策划 x 技术内容营销 x 热点捕捉</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">36氪-氪星研究所 IP x 高通骁龙<br>《普通人如何进入元宇宙》</h2>
+                        </div>
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://player.bilibili.com/player.html?bvid=BV1P8411u7Kn&page=1&high_quality=1&danmaku=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://www.bilibili.com/video/BV1P8411u7Kn/" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-[#fb7299] backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 在 B站 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-purple-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目嘉宾：</strong><span class="text-white">影视飓风-Tim、爱奇艺副总裁-陈伟</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">内容和真人秀策划、项目监制、现场总导演、后期负责人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">统筹团队：</strong><span class="text-white">摄制团队 35 人、内容编辑 2 人、剪辑 2 人、平面与动画视觉可视化 2 人。</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-purple-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目背景与标准：</strong><span class="text-white">高通骁龙芯片在面捕技术中带来的综艺内容创新化。内部成片标准为：定制圆桌访谈真人秀-综艺真人秀访谈标准。全执行周期2天，内容策划周期16天。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与荣誉：</strong><span class="text-white text-base text-purple-300 font-medium">实际总曝光（内渠道）：68,598,014<br>实际总点击（内渠道）：5,640,870<br>🏆 金榜奖 - 最佳商业片 - 提名中</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目 3：荣耀 -->
+                <div class="group reveal reveal-delay-3 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片3修改为 project3.jpg -->
+                        <img src="project3.jpg" alt="荣耀Vlog小灶" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-orange-400 mb-2 uppercase">SSS级原创真人秀</span>
+                            <h3 class="text-2xl font-bold text-white">荣耀80<br>《庞博的Vlog小灶》</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        担任总制片人与总编剧。统筹全摄制104人大型团队，完成复杂户外调度，曝光超757万。
+                    </p>
+                    <button onclick="openModal('data-proj3')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-orange-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-orange-500 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                    
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj3" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-orange-500 font-bold tracking-widest text-sm uppercase mb-3 block">产品营销项目 - 原创形态产品 - 微综艺 (真人秀)</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">36氪 x 荣耀80<br>《庞博的 Vlog 小灶》</h2>
+                        </div>
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://player.bilibili.com/player.html?bvid=BV1xP4y1X7L6&page=1&high_quality=1&danmaku=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://www.bilibili.com/video/BV1xP4y1X7L6/" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-[#fb7299] backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 在 B站 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-orange-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目嘉宾：</strong><span class="text-white">庞博 - 脱口秀演员、房琪 - 国内第一个千万级旅行博主</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">内容和商业化总制片人、监制、现场总导演、总编剧</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">统筹团队：</strong><span class="text-white">全摄制与后期团队成员 104 人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">内部成片标准：</strong><span class="text-white">户外真人秀 - 广播电视综艺标准。全执行周期14天，摄制时间6小时。</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-orange-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">话题涵盖：</strong><span class="text-white">AI-Vlog 使用场景、技术发展迭代情况和品牌革新。一键成片的使用方法和成片质量展示、产品的触发机制等。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与业绩：</strong><span class="text-white text-base text-orange-300 font-medium">总曝光（内渠道）：7,573,000<br>总点击（内渠道）：1,223,840</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目 4：海尔发布会 -->
+                <div class="group reveal reveal-delay-1 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片4修改为 project4.jpg -->
+                        <img src="project4.jpg" alt="海尔全能Space发布会" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-teal-400 mb-2 uppercase">SS级发布会 x 双场调度</span>
+                            <h3 class="text-2xl font-bold text-white">海尔<br>全能Space扫拖机器人<br>产品发布会</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        总制片人。统筹152人团队完成网络直播与TVC双调度，17个渠道转播发力。
+                    </p>
+                    <button onclick="openModal('data-proj4')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-teal-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-teal-500 group-hover:shadow-[0_0_20px_rgba(20,184,166,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                    
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj4" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-teal-500 font-bold tracking-widest text-sm uppercase mb-3 block">营销项目 - 产品测评真人秀 - 产品发布会 - 视频 x 直播整合</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">36氪 x 海尔<br>全能Space扫拖机器人<br>产品发布会</h2>
+                        </div>
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://36kr.com/live/2470785440520069" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://36kr.com/live/2470785440520069" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-teal-600 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 前往 36氪 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-teal-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目嘉宾：</strong><span class="text-white">36氪副总裁、海尔总经理、中国家电研究院院长等</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">总制片人、第二现场（TVC）搭建和拍摄负责人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">统筹团队：</strong><span class="text-white">全团队共计 152 人。全执行周期21天，调度现场直播和摄制。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">内部成片标准：</strong><span class="text-white">网络直播 xTVC 产品真人秀 - 对抗比赛标准</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-teal-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">市场背景：</strong><span class="text-white">海尔全能 Space 系列扫拖机器人新品发布。以网络直播 + 内容 + 媒介 + 渠道多端整合，提升品牌效应。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与业绩：</strong><span class="text-white text-base text-teal-300 font-medium">矩阵平台 17 个渠道转播，媒体合计 30+ 转播，内容 x 电商 x 品牌三渠道同步发力。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目 5：氪星研究所IP爆款 -->
+                <div class="group reveal reveal-delay-2 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片5修改为 project5.jpg -->
+                        <img src="project5.jpg" alt="给东京奥运会算笔经济账" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-yellow-400 mb-2 uppercase">金瞳奖金奖</span>
+                            <h3 class="text-2xl font-bold text-white">给东京奥运会算笔经济账</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        36氪标杆内容。矩阵观看超3000W，单条涨粉100W，斩获金瞳奖-最佳传播效果-金奖。
+                    </p>
+                    <button onclick="openModal('data-proj5')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-yellow-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-yellow-500 group-hover:shadow-[0_0_20px_rgba(202,138,4,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj5" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-yellow-500 font-bold tracking-widest text-sm uppercase mb-3 block">内容影响力 - 原创 IP - 数据可视化 x 热点捕捉</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">氪星研究所 IP — 给东京奥运会算笔经济账</h2>
+                        </div>
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://player.bilibili.com/player.html?bvid=BV1iL411H7VN&page=1&high_quality=1&danmaku=0&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://www.bilibili.com/video/BV1iL411H7VN/" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-[#fb7299] backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 在 B站 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-yellow-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目嘉宾：</strong><span class="text-white">《氪星研究所》主理人-氪（虚拟形象，本人配音）</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">内容策划、视觉与后期负责人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">统筹团队：</strong><span class="text-white">记者撰稿 1 人，剪辑 1 人，平面与动画视觉可视化 2 人。</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-yellow-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">话题涵盖：</strong><span class="text-white">北京奥运会商业数据复盘、东京奥运会前财务状况和财政改善、奥运会历史中的商业化成功和失败案例等。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与荣誉：</strong><span class="text-white text-base text-yellow-300 font-medium">36氪抖音IP《氪财经》渠道单条涨粉 100W<br>矩阵观看总人次超 3000W，单期热榜迄今为止仍保留在 No.1<br>🏆 金瞳奖 - 原创内容 - 最佳传播效果 - 金奖</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目 6：WAIC/AWE 探展 -->
+                <div class="group reveal reveal-delay-3 flex flex-col h-full">
+                    <div class="img-container relative w-full h-72 mb-6 overflow-hidden rounded-xl bg-gray-900 shrink-0">
+                        <!-- 图片6修改为 project6.jpg -->
+                        <img src="project6.jpg" alt="WAIC 科技探展" class="w-full h-full object-cover img-parallax opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                            <span class="text-xs font-bold tracking-widest text-red-400 mb-2 uppercase">A级原创直播IP</span>
+                            <h3 class="text-2xl font-bold text-white">揭秘WAIC黑科技</h3>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed flex-grow">
+                        担任现场调度与直播保障负责人。标准广播电视级直播流，精准覆盖30个内外部渠道。
+                    </p>
+                    <button onclick="openModal('data-proj6')" class="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-white bg-gray-800 hover:bg-red-600 px-5 py-3 rounded-xl transition-all w-full border border-gray-700 hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+                        点击了解详情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+
+                    <!-- 隐藏的二级详情数据 -->
+                    <div id="data-proj6" class="hidden">
+                        <div class="mb-8">
+                            <span class="text-red-500 font-bold tracking-widest text-sm uppercase mb-3 block">原创直播 IP - 展会类 - WAIC/AWE 探展</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">揭秘WAIC黑科技</h2>
+                        </div>
+                        <div class="video-wrapper mb-10 border border-gray-800">
+                            <!-- 新增 allow="fullscreen" 显式剥夺自动播放权限 -->
+                            <iframe src="https://36kr.com/live/3392431605975431" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                            <a href="https://36kr.com/live/3392431605975431" target="_blank" class="absolute top-4 right-4 bg-black/70 hover:bg-red-600 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 z-10">
+                                <i data-lucide="external-link" class="w-3 h-3"></i> 前往 36氪 观看
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-red-400"></i> 核心职责与统筹</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">参与嘉宾：</strong><span class="text-white">AWE参展商</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">项目角色：</strong><span class="text-white">现场调度负责人、直播保障负责人</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">统筹团队：</strong><span class="text-white">节点调度 3 人，摄制 5 人，技术 8 人。</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700/50">
+                                <h4 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-red-400"></i> 背景与业绩指标</h4>
+                                <ul class="space-y-4 text-sm leading-relaxed">
+                                    <li><strong class="text-gray-400 block mb-1">项目背景与标准：</strong><span class="text-white">在运算大模型下 AIPC 应运而生，联想重构了混合智能的底层架构。内部成片标准：标准广播电视级别。全执行周期2天，环节策划周期1天。</span></li>
+                                    <li><strong class="text-gray-400 block mb-1">数据与业绩：</strong><span class="text-white text-base text-red-300 font-medium">精准覆盖内外部渠道共计 30 个，单渠道场次最高热度 32.8W。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 新增：全局项目详情模态框 (Modal) -->
+    <div id="project-modal" class="modal-overlay fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
+        <div class="modal-content bg-gray-900 border border-gray-800 rounded-[2rem] w-full max-w-5xl max-h-[90vh] overflow-y-auto relative shadow-2xl flex flex-col">
+            <!-- 关闭按钮 -->
+            <button onclick="closeModal()" class="sticky top-6 right-6 ml-auto w-12 h-12 bg-white/10 hover:bg-white hover:text-black rounded-full flex items-center justify-center transition-colors z-50 backdrop-blur-md text-white border border-white/20">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- 模态框动态内容注入区 -->
+            <div id="modal-body" class="p-8 sm:p-12 -mt-12">
+                <!-- 内部结构由JS点击按钮时自动注入 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 教育背景与 Footer (回归纯白留白) -->
+    <section id="contact" class="py-32 px-6 border-t border-gray-200 bg-white text-gray-900">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-16 reveal">
+            
+            <div class="max-w-2xl">
+                <h2 class="text-sm font-bold tracking-widest uppercase text-gray-500 mb-8">Education / 教育经历</h2>
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold mb-2">兰州财经大学</h3>
+                    <p class="text-gray-600 text-lg">电子信息工程（通信方向） | 本科 | 2014.09 - 2018.06</p>
+                </div>
+
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-gray-900">Let's Talk.</h2>
+                <p class="text-xl text-gray-500">寻找下一个极具挑战与增长空间的品牌与商业化战场。</p>
+            </div>
+
+            <div class="flex flex-col space-y-4 text-lg font-medium text-gray-900">
+                <a href="mailto:huger.man@163.com" class="flex items-center space-x-3 hover:text-blue-600 transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    <span>huger.man@163.com</span>
+                </a>
+                <a href="tel:13161377729" class="flex items-center space-x-3 hover:text-blue-600 transition-colors">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    <span>+86 131-6137-7729</span>
+                </a>
+                <div class="flex items-center space-x-3 text-gray-500">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    <span>Base: 中国 · 北京</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-32 pt-8 border-t border-gray-200 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center reveal">
+            <p>&copy; 2026 Anton Chen. All Rights Reserved.</p>
+            <p class="mt-2 md:mt-0">Designed & Handcoded for Portfolio.</p>
+        </div>
+    </section>
+
+    <!-- 交互脚本 -->
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { entry.target.classList.add('active'); }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            const heroBlob = document.getElementById('hero-blob');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                if(heroBlob && scrolled < window.innerHeight) {
+                    heroBlob.style.transform = `translateY(${scrolled * 0.4}px)`;
+                }
+            });
+
+            const canvas = document.getElementById('tech-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let particles = [];
+                function resize() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 0.6;
+                        this.vy = (Math.random() - 0.5) * 0.6;
+                        this.radius = Math.random() * 1.5;
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(156, 163, 175, 0.4)'; 
+                        ctx.fill();
+                    }
+                }
+                const particleCount = window.innerWidth < 768 ? 30 : 70; 
+                for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+                let mouse = { x: null, y: null };
+                document.querySelector('section').addEventListener('mousemove', e => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+                document.querySelector('section').addEventListener('mouseleave', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => { p.update(); p.draw(); });
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 120) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(156, 163, 175, ${0.15 - dist/800})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                        if (mouse.x != null) {
+                            const dx = particles[i].x - mouse.x;
+                            const dy = particles[i].y - mouse.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 150) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(59, 130, 246, ${0.4 - dist/375})`;
+                                ctx.lineWidth = 1;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(mouse.x, mouse.y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+        });
+
+        // ==========================================
+        // 模态框交互逻辑
+        // ==========================================
+        function openModal(dataId) {
+            const modal = document.getElementById('project-modal');
+            const modalBody = document.getElementById('modal-body');
+            
+            // 显示弹窗并锁定背景滚动
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // 【黑科技拦截】延迟 50ms 注入内容。这能打断浏览器的“User Gesture (用户点击交互)”上下文，
+            // 从而强制触发浏览器严格的防自动播放策略，迫使第三方视频必须等待手动点击才能播放。
+            setTimeout(() => {
+                modalBody.innerHTML = document.getElementById(dataId).innerHTML;
+                lucide.createIcons();
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            
+            // 隐藏弹窗并恢复背景滚动
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // 延迟清空弹窗内容，避免直接消失太生硬，同时能立即停止视频/音频的播放
+            setTimeout(() => {
+                document.getElementById('modal-body').innerHTML = '';
+            }, 300);
+        }
+
+        // 点击模态框黑色背景区域也能关闭
+        document.getElementById('project-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
